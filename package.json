@@ -1,0 +1,38 @@
+{
+  "name": "@inotom/expand-controller",
+  "version": "1.0.0",
+  "description": "Toggle expand state script.",
+  "main": "dist/index.js",
+  "cdn": "dist/expand-controller.min.js",
+  "config": {
+    "dist_dir": "dist",
+    "src_dir": "src"
+  },
+  "scripts": {
+    "start": "NODE_ENV=development npx rollup -c -w",
+    "build": "NODE_ENV=production npx rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inotom/expand-controller.git"
+  },
+  "keywords": [],
+  "author": "inotom <wdf7322@yahoo.co.jp>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inotom/expand-controller/issues"
+  },
+  "homepage": "https://github.com/inotom/expand-controller#readme",
+  "devDependencies": {
+    "@babel/core": "7.7.7",
+    "@babel/preset-env": "7.7.7",
+    "core-js": "3.6.1",
+    "eslint": "6.8.0",
+    "prettier": "1.19.1",
+    "rollup": "1.27.14",
+    "rollup-plugin-babel": "4.3.3",
+    "rollup-plugin-license": "0.13.0",
+    "rollup-plugin-terser": "5.1.3"
+  }
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>@inotom/expand-controller demo</title>
+<style>
+[data-height] {
+  overflow: hidden;
+  transition: height .3s;
+}
+[data-enable-height-style=false][aria-hidden=true] {
+  display: none;
+}
+</style>
+</head>
+<body>
+
+  <h1>@inotom/expand-controller demo</h1>
+
+  <h2>default</h2>
+
+  <div class="example">
+    <button class="js-expand-controller" aria-controls="exc-1">
+      Lorem ipsum
+    </button>
+    <div id="exc-1">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+  </div>
+
+  <hr>
+
+  <h2>expanded</h2>
+
+  <div class="example">
+    <button class="js-expand-controller" aria-controls="exc-2" aria-expanded="true">
+      Lorem ipsum
+    </button>
+    <div id="exc-2">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+  </div>
+
+  <hr>
+
+  <h2>disable height style</h2>
+
+  <div class="example">
+    <button class="js-expand-controller" aria-controls="exc-3">
+      Lorem ipsum
+    </button>
+    <div id="exc-3" data-enable-height-style="false">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+  </div>
+
+  <hr>
+
+  <h2>multiple target</h2>
+
+  <div class="example">
+    <button class="js-expand-controller" aria-controls="exc-4 exc-5">
+      Lorem ipsum
+    </button>
+    <div id="exc-4">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+    <div id="exc-5">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+  </div>
+
+
+<script src="./expand-controller.min.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  document.addEventListener('DOMContentLoaded', function() {
+    ExpandController.expandController();
+  });
+})();
+</script>
+</body>
+</html>
