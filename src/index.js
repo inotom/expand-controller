@@ -1,5 +1,8 @@
 /** @prettier */
 
+const KEY_ENTER = 13;
+const KEY_SPACE = 32;
+
 const setAriaExpanded = (el, state) => {
   el.setAttribute('aria-expanded', state);
 };
@@ -47,10 +50,32 @@ export const expandController = () => {
   Array.prototype.slice.call(elHandles, 0).forEach(elHandle => {
     const elPanelIds = elHandle.getAttribute('aria-controls').split(' ');
 
-    elHandle.addEventListener('click', () => {
+    const handler = e => {
+      const disableEvents = elHandle.dataset.disableEvents?.split(' ') || [];
+      disableEvents.forEach(type => {
+        switch (type) {
+          case 'prevent':
+            e.preventDefault();
+            break;
+          case 'stop':
+            e.stopPropagation();
+            break;
+        }
+      });
+
       const state = toggleHandle(elHandle);
       setPanels(elPanelIds, state);
-    });
+    };
+
+    elHandle.addEventListener('click', handler);
+
+    if (elHandle.getAttribute('role') === 'button') {
+      elHandle.addEventListener('keydown', e => {
+        if (e.keyCode === KEY_ENTER || e.keyCode === KEY_SPACE) {
+          handler(e);
+        }
+      });
+    }
 
     // initialization
     const ariaExpanded = elHandle.getAttribute('aria-expanded');
