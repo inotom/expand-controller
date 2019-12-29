@@ -11,6 +11,8 @@
   "scripts": {
     "start": "NODE_ENV=development npx rollup -c -w",
     "build": "NODE_ENV=production npx rollup -c",
+    "lint": "eslint --ext .js $npm_package_config_src_dir",
+    "prettier": "prettier --write $npm_package_config_src_dir/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
