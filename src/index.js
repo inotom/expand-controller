@@ -29,6 +29,17 @@ const toggleAriaHidden = (el, state) => {
   el.setAttribute('aria-hidden', !state);
 };
 
+const setPanelDataHeight = el => {
+  el.style.height = 'auto';
+  const height = el.clientHeight;
+  el.dataset.height = height;
+};
+
+const setPanelStyle = (el, state) => {
+  const height = state ? el.dataset.height + 'px' : 0;
+  el.style.height = height;
+};
+
 const toggleHeight = (el, state) => {
   const enabled = el.dataset.enableHeightStyle !== 'false';
   if (!enabled) {
@@ -36,12 +47,10 @@ const toggleHeight = (el, state) => {
   }
 
   if (!el.dataset.height) {
-    const height = el.clientHeight;
-    el.dataset.height = height;
+    setPanelDataHeight(el);
   }
 
-  const nextHeightValue = state ? el.dataset.height + 'px' : 0;
-  el.style.height = nextHeightValue;
+  setPanelStyle(el, state);
 };
 
 export const expandController = () => {
@@ -82,5 +91,21 @@ export const expandController = () => {
     const initialState = ariaExpanded === null ? false : ariaExpanded === 'true';
     setAriaExpanded(elHandle, initialState);
     setPanels(elPanelIds, initialState);
+  });
+
+  // reset panel height
+  window.addEventListener('resize', () => {
+    Array.prototype.slice.call(elHandles, 0).forEach(elHandle => {
+      const elPanelIds = elHandle.getAttribute('aria-controls').split(' ');
+      elPanelIds.forEach(id => {
+        const elPanel = document.getElementById(id);
+        if (!elPanel || elPanel.dataset.enableHeightStyle === 'false') {
+          return;
+        }
+
+        setPanelDataHeight(elPanel);
+        setPanelStyle(elPanel, elPanel.getAttribute('aria-hidden') === 'false');
+      });
+    });
   });
 };
