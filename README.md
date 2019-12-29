@@ -88,6 +88,28 @@ To operate multiple target elements, specify the `id` of the target element in `
 </div>
 ```
 
+For elements other than `button`, if the `role="button"` attribute is added, it operates with the `Enter/Space` key press event.
+
+```html
+<div class="js-expand-controller" aria-controls="exc-1" role="button" tabindex="0">
+  Lorem ipsum
+</div>
+<div id="exc-1">
+  Lorem ipsum dolor sit amet
+</div>
+```
+
+When the value of `prevent` or `stop` is set in `data-disable-events` attribute in anchor element, etc., `preventDefault` and `stopPropagation` are executed.
+
+```html
+<a class="js-expand-controller" href="#" aria-controls="exc-1" role="button" tabindex="0" data-disable-events="prevent stop">
+  Lorem ipsum
+</a>
+<div id="exc-1">
+  Lorem ipsum dolor sit amet
+</div>
+```
+
 ## License
 
 MIT
