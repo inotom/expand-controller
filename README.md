@@ -5,6 +5,11 @@ The open / close state of the operation target element is switched by the click 
 When switching elements, `aria-expanded` and `aria-hidden` attributes are automatically set.
 
 
+## Demo
+
+[Demo](https://sandbox.serendip.ws/expand-controller.html)
+
+
 ## Install
 
 ```
