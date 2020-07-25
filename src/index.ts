@@ -3,11 +3,11 @@
 const KEY_ENTER = 13;
 const KEY_SPACE = 32;
 
-const setAriaExpanded = (el, state) => {
-  el.setAttribute('aria-expanded', state);
+const setAriaExpanded = (el: HTMLElement, state: boolean) => {
+  el.setAttribute('aria-expanded', `${state}`);
 };
 
-const toggleHandle = el => {
+const toggleHandle = (el: HTMLElement) => {
   const currentState = el.getAttribute('aria-expanded') === 'true';
   const nextState = !currentState;
 
@@ -15,8 +15,8 @@ const toggleHandle = el => {
   return nextState;
 };
 
-const setPanels = (ids, state) => {
-  ids.forEach(id => {
+const setPanels = (ids: Array<string>, state: boolean) => {
+  ids.forEach((id) => {
     const el = document.getElementById(id);
     if (el) {
       toggleAriaHidden(el, state);
@@ -25,22 +25,22 @@ const setPanels = (ids, state) => {
   });
 };
 
-const toggleAriaHidden = (el, state) => {
-  el.setAttribute('aria-hidden', !state);
+const toggleAriaHidden = (el: HTMLElement, state: boolean) => {
+  el.setAttribute('aria-hidden', `${!state}`);
 };
 
-const setPanelDataHeight = el => {
+const setPanelDataHeight = (el: HTMLElement) => {
   el.style.height = 'auto';
   const height = el.clientHeight;
-  el.dataset.height = height;
+  el.dataset.height = `${height}`;
 };
 
-const setPanelStyle = (el, state) => {
-  const height = state ? el.dataset.height + 'px' : 0;
+const setPanelStyle = (el: HTMLElement, state: boolean) => {
+  const height = state ? el.dataset.height + 'px' : '0';
   el.style.height = height;
 };
 
-const toggleHeight = (el, state) => {
+const toggleHeight = (el: HTMLElement, state: boolean) => {
   const enabled = el.dataset.enableHeightStyle !== 'false';
   if (!enabled) {
     return;
@@ -53,15 +53,19 @@ const toggleHeight = (el, state) => {
   setPanelStyle(el, state);
 };
 
-export const expandController = () => {
-  const elHandles = document.querySelectorAll('.js-expand-controller[aria-controls]');
+export const expandController = ({
+  selector = '.js-expand-controller',
+}: {
+  selector?: string;
+} = {}): void => {
+  const elHandles = document.querySelectorAll(`${selector}[aria-controls]`);
 
-  Array.prototype.slice.call(elHandles, 0).forEach(elHandle => {
+  Array.prototype.slice.call(elHandles, 0).forEach((elHandle) => {
     const elPanelIds = elHandle.getAttribute('aria-controls').split(' ');
 
-    const handler = e => {
+    const handler = (e: Event) => {
       const disableEvents = elHandle.dataset.disableEvents?.split(' ') || [];
-      disableEvents.forEach(type => {
+      disableEvents.forEach((type: string) => {
         switch (type) {
           case 'prevent':
             e.preventDefault();
@@ -79,7 +83,7 @@ export const expandController = () => {
     elHandle.addEventListener('click', handler);
 
     if (elHandle.getAttribute('role') === 'button') {
-      elHandle.addEventListener('keydown', e => {
+      elHandle.addEventListener('keydown', (e: KeyboardEvent) => {
         if (e.keyCode === KEY_ENTER || e.keyCode === KEY_SPACE) {
           handler(e);
         }
@@ -95,9 +99,9 @@ export const expandController = () => {
 
   // reset panel height
   window.addEventListener('resize', () => {
-    Array.prototype.slice.call(elHandles, 0).forEach(elHandle => {
+    Array.prototype.slice.call(elHandles, 0).forEach((elHandle) => {
       const elPanelIds = elHandle.getAttribute('aria-controls').split(' ');
-      elPanelIds.forEach(id => {
+      elPanelIds.forEach((id: string) => {
         const elPanel = document.getElementById(id);
         if (!elPanel || elPanel.dataset.enableHeightStyle === 'false') {
           return;
