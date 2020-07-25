@@ -1,6 +1,5 @@
-src/
-.babelrc
 .editorconfig
-.eslintrc
+.eslintrc.json
 .node-version
 .prettierrc
+.local.vimrc
