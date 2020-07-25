@@ -4,6 +4,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 import commonjs from '@rollup/plugin-commonjs';
 import html2 from 'rollup-plugin-html2';
+import serve from 'rollup-plugin-serve';
+import livereload from 'rollup-plugin-livereload';
 import buble from '@rollup/plugin-buble';
 import { terser } from 'rollup-plugin-terser';
 
@@ -18,6 +20,22 @@ const moduleName = upperFirst(camelCase(unscopedName));
 
 // ライブラリに埋め込むcopyright
 const banner = `/*! ${unscopedName}.js v${pkg.version} ${pkg.author} | ${pkg.license} License */`;
+
+const plugins = [resolve(), typescript(), commonjs({ extensions: ['.ts', '.js'] })];
+let pluginsBrowser = [...plugins, buble(), html2({ template: 'src/html/index.html' })];
+
+if (process.env.NODE_ENV === 'development') {
+  pluginsBrowser = [
+    ...pluginsBrowser,
+    serve({
+      contentBase: './dist',
+      port: 3000,
+    }),
+    livereload({
+      watch: './dist',
+    }),
+  ];
+}
 
 export default [
   // Options for browser.
@@ -42,13 +60,7 @@ export default [
     ],
     // Exclude development modules.
     external: [...Object.keys(pkg.devDependencies || {})],
-    plugins: [
-      resolve(),
-      typescript(),
-      commonjs({ extensions: ['.ts', '.js'] }),
-      buble(),
-      html2({ template: 'src/html/index.html' }),
-    ],
+    plugins: pluginsBrowser,
   },
   // Options for module.
   {
@@ -71,6 +83,6 @@ export default [
     ],
     // Exclude other modules.
     external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.devDependencies || {})],
-    plugins: [resolve(), typescript(), commonjs({ extensions: ['.ts', '.js'] })],
+    plugins,
   },
 ];
