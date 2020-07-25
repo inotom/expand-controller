@@ -53,8 +53,12 @@ const toggleHeight = (el: HTMLElement, state: boolean) => {
   setPanelStyle(el, state);
 };
 
-export const expandController = (): void => {
-  const elHandles = document.querySelectorAll('.js-expand-controller[aria-controls]');
+export const expandController = ({
+  selector = '.js-expand-controller',
+}: {
+  selector?: string;
+} = {}): void => {
+  const elHandles = document.querySelectorAll(`${selector}[aria-controls]`);
 
   Array.prototype.slice.call(elHandles, 0).forEach((elHandle) => {
     const elPanelIds = elHandle.getAttribute('aria-controls').split(' ');

@@ -110,6 +110,17 @@ When the value of `prevent` or `stop` is set in `data-disable-events` attribute 
 </div>
 ```
 
+
+## Options
+
+```js
+expandController({
+  // selector name (default: .js-expand-controller)
+  selector: '.js-custom-expand-controller',
+});
+```
+
+
 ## License
 
 MIT
