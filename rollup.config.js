@@ -3,6 +3,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 import commonjs from '@rollup/plugin-commonjs';
+import html2 from 'rollup-plugin-html2';
 import buble from '@rollup/plugin-buble';
 import { terser } from 'rollup-plugin-terser';
 
@@ -41,7 +42,13 @@ export default [
     ],
     // Exclude development modules.
     external: [...Object.keys(pkg.devDependencies || {})],
-    plugins: [resolve(), typescript(), commonjs({ extensions: ['.ts', '.js'] }), buble()],
+    plugins: [
+      resolve(),
+      typescript(),
+      commonjs({ extensions: ['.ts', '.js'] }),
+      buble(),
+      html2({ template: 'src/html/index.html' }),
+    ],
   },
   // Options for module.
   {

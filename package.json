@@ -11,7 +11,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "NODE_ENV=development rollup -c -w",
-    "prebuild": "rimraf dist/*.js dist/*.map dist/*.d.ts && npm run clean && npm run types",
+    "prebuild": "rimraf dist && npm run clean && npm run types",
     "build": "NODE_ENV=production rollup -c",
     "clean": "rimraf '**/.DS_Store'",
     "prepublishOnly": "npm run build",
@@ -48,6 +48,7 @@
     "prettier": "2.0.5",
     "rimraf": "3.0.2",
     "rollup": "2.23.0",
+    "rollup-plugin-html2": "1.1.0",
     "rollup-plugin-terser": "6.1.0",
     "rollup-plugin-typescript2": "0.27.1",
     "typescript": "3.9.7"
